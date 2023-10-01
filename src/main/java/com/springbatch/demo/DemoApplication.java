@@ -18,6 +18,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.interceptor.TransactionAttribute;
 
 import com.springbatch.tasklet.MyTasklet;
 
@@ -49,8 +50,9 @@ public class DemoApplication {
 
     @Bean
     public Step firstStep(JobRepository jobRepository, Tasklet myTasklet, PlatformTransactionManager transactionManager) {
-    	return new StepBuilder("myJob", jobRepository)
-    			.tasklet(myTasklet, transactionManager)
+    	return new StepBuilder("step1")
+    			.tasklet(myTasklet)
+    			.transactionManager(transactionManager)
                 .build();
     }
 
